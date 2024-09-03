@@ -50,3 +50,6 @@
 
 ■ 機能の実装方針予定
 ChatGPT API、フォーム入力時のステップ入力、掲示板投稿画像の加工。
+
+# 画面遷移図
+Figma: "https://www.figma.com/slides/EJ8T6SgBB8E0nQASiTicgt/Let's-Travel-%2F-UI?t=YPzqYrh2se77Vhfb-1"
