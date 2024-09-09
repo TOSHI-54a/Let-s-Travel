@@ -53,3 +53,6 @@ ChatGPT API、フォーム入力時のステップ入力、掲示板投稿画像
 
 # 画面遷移図
 Figma: "https://www.figma.com/slides/EJ8T6SgBB8E0nQASiTicgt/Let's-Travel-%2F-UI?t=YPzqYrh2se77Vhfb-1"
+
+# ER図
+https://drive.google.com/file/d/174DqJFmCBBm1_zCTdXmaqYIT_hU8nGph/view?usp=sharing
