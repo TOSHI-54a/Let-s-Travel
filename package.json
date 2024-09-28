@@ -22,8 +22,8 @@
   },
   "homepage": "https://github.com/TOSHI-54a/Let-s-Travel#readme",
   "dependencies": {
-    "@hotwired/turbo-rails": "^7.0.0",
     "@hotwired/stimulus": "^3.0.0",
+    "@hotwired/turbo-rails": "^7.0.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
     "vite": "^3.2.10"
