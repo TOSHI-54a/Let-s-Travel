@@ -1,0 +1,31 @@
+{
+  "name": "lets_travel",
+  "version": "1.0.0",
+  "description": "■サービス概要 旅行に興味がある方に旅行をもっと身近に感じてもらうサービスです。 旅行に行きたいなと思っているがどこに行けば良いか、どこが自分に合う旅行先なのか分からず具体的な旅行先が決まらない方や、旅行に行きたいけどお金を消費してしまうことに不安を覚える方に対して、ChatGPTを活用して旅行先を提案したり、旅行にお金を使う罪悪感を少しばかり和らげるサービスです。",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets --loader:.js=jsx"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TOSHI-54a/Let-s-Travel.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TOSHI-54a/Let-s-Travel/issues"
+  },
+  "homepage": "https://github.com/TOSHI-54a/Let-s-Travel#readme",
+  "dependencies": {
+    "@hotwired/turbo-rails": "^7.0.0",
+    "@hotwired/stimulus": "^3.0.0",
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3",
+    "vite": "^3.2.10"
+  }
+}

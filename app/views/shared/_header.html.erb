@@ -1,0 +1,29 @@
+<header>
+  <nav class='navbar bg-body-tertiary'>
+    <div class='container-fluid'>
+      <%= link_to "Let's Travel", root_path, class: 'navbar-brand' %>
+      <ul class='nav justify-content-end'>
+        <li class='nav-time'>
+          <a class='nav-link active' aria-current='page' href="#">旅行先を探す</a>
+        </li>
+        <li class='nav-time'>
+          <a class='nav-link' href="#">節約する</a>
+        </li>
+        <li class='nav-time'>
+          <a class='nav-link' href="#">旅行体験記</a>
+        </li>
+        <li class='nav-time'>
+          <%= link_to '新規会員登録', new_user_path, class: 'nav-link' %>
+        </li>
+        <li class='nav-item'>
+          <% if logged_in? %>
+            <%= link_to 'マイページ', user_path(current_user) %>
+            <%= link_to 'ログアウト', logout_path, method: :delete, data: { turbo_method: :delete }, class: 'nav-link active' %>
+          <% else %>
+            <%= link_to 'ログイン', login_path, class: 'nav-link active' %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
