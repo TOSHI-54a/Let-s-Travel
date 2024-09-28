@@ -1,0 +1,8 @@
+<div class='mb-3'>
+  <p>ユーザー名</p>
+  <%= "#{@user.name}" %>
+  <p>email</p>
+  <%= "#{@user.email}" %>
+  <p>画像</p>
+  <%= image_tag @user.avatar_url(variant: :thumb), size: 150, class: "rounded" %>
+</div>
