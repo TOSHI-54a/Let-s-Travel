@@ -1,0 +1,27 @@
+<%= form_with model: @travel_search, url: travel_searches_path, method: :post, local: true do |f| %>
+    <div class='mb-3'>
+      <%= f.label :number, "人数", class: 'form-label' %>
+      <%= f.select :number, options_for_select((1..10).map { |n| ["#{n}人", n] }), {}, class: 'form-select' %>
+    </div>
+
+    <div class='mb-3'>
+      <%= f.label :gender, "性別", class: 'form-label' %>
+      <%= f.select :gender, options_for_select([
+        ['男性', 'male'], ['女性', 'female'], ['男女', 'Regardless of gender']
+      ]), {}, class: 'form-select' %>
+    </div>
+
+    <div class='mb-3'>
+      <%= f.label :age, "年代", class: 'form-label' %>
+      <%= f.select :age, options_for_select((10..80).step(10).map { |age| ["#{age}代", age] }), {}, class: 'form-select' %>
+    </div>
+
+    <div class='mb-3'>
+      <%= f.label :budget, "予算", class: 'form-label' %>
+      <%= f.select :budget, options_for_select((5..50).step(5).map { |budget| ["#{budget}万円", budget * 10000] }), {}, class: 'form-select' %>
+    </div>
+
+    <%= f.submit "検索", class: "btn btn-primary" %>
+<% end %>
+
+# パラメータにtravel_searchesが含まれていないエラー発生

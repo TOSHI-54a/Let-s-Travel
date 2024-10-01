@@ -4,7 +4,7 @@
       <%= link_to "Let's Travel", root_path, class: 'navbar-brand' %>
       <ul class='nav justify-content-end'>
         <li class='nav-time'>
-          <a class='nav-link active' aria-current='page' href="#">旅行先を探す</a>
+          <%= link_to '旅行先を探す', new_travel_search_path, class: 'nav-link active' %>
         </li>
         <li class='nav-time'>
           <a class='nav-link' href="#">節約する</a>

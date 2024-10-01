@@ -1,0 +1,11 @@
+<h1>おすすめの旅行先</h1>
+
+<% if @recommendations.present? %>
+  <ul>
+    <% @recommendations.each do |recommendation| %>
+        <li><%= recommendation %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>取得できませんでした</p>
+<% end %>

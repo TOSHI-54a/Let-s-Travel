@@ -33,6 +33,9 @@ gem "bootstrap"
 gem "sassc-rails"
 gem "jsbundling-rails"
 gem "jquery-rails"
+gem "httparty"
+gem "dotenv-rails"
+gem 'deepl-rb', require: 'deepl'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
