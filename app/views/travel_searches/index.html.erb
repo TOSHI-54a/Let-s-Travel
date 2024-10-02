@@ -1,0 +1,11 @@
+<h1>旅行先を探す</h1>
+<% if @recommendations.present? %>
+  <ul>
+    <% @recommendations.each do |recommendation| %>
+        <li><%= recommendation %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No recommendations available. </p>
+<% end %>
+<p>Find me in app/views/travel_search/index.html.erb</p>

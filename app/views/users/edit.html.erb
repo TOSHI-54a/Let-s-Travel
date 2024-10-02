@@ -1,11 +1,11 @@
 <div class='mb-3'>
-  <%= form_with url: login_path do |f| %>
+  <%= form_with(model: @user, url: user_path(@user), method: :patch, local: true) do |f| %>
+    <%= display_errors(@user) %>
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control', placeholder: @user.name %>
     <%= f.label :email %>
-    <%= f.email_field :email, class: 'form-control' %>
+    <%= f.email_field :email, class: 'form-control', placeholder: @user.email %>
   
-    <%= f.label :password %>
-    <%= f.password_field :password, class: 'form-control' %>
-  
-    <%= f.submit 'ログイン' %>
+    <%= f.submit '更新' %>
   <% end %>
 </div>
