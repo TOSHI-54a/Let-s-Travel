@@ -1,6 +1,5 @@
 FROM ruby:3.1.4
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs npm
-RUN npm install -g yarn esbuild sass vite
 RUN mkdir /lets_travel
 WORKDIR /lets_travel
 RUN gem install bundler:2.5.6

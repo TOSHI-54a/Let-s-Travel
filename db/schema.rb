@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_09_27_153750) do
+ActiveRecord::Schema[7.0].define(version: 2024_10_14_070429) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -39,6 +39,36 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_27_153750) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "boards", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "place_name", null: false
+    t.date "start_duration", null: false
+    t.date "end_duration", null: false
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "budget"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "board_id"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["board_id"], name: "index_comments_on_board_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "savings", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.date "date_and_time"
+    t.integer "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_savings_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -52,4 +82,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_09_27_153750) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "boards"
+  add_foreign_key "comments", "users"
 end

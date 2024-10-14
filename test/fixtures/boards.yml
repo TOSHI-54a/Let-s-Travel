@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  place_name: MyString
+  start_duration: 2024-10-03 15:30:55
+  end_budget: 1
+  body: MyText
+
+two:
+  user_id: 1
+  place_name: MyString
+  start_duration: 2024-10-03 15:30:55
+  end_budget: 1
+  body: MyText

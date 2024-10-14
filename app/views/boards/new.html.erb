@@ -1,0 +1,36 @@
+<div class='cotainer'>
+  <div class='row'>
+    <div class='col-md-10 col-lg-8 mx-auto'>
+      <h1>旅行体験記 -入力-</h1>
+      <%= form_with model: @board do |f| %>
+        <% if @board.errors.any? %>
+          <div class='alert alert-danger'>
+            <% @board.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class='mb-3'>
+          <label for='PlaceNameInput1' class='form-label'>都市名<必須></label>
+          <%= f.text_field :place_name, class: 'form-control' %>
+        </div>
+        <div class='mb-3'>
+          <label for='start_duration'>始まり</label>
+          <%= f.date_field :start_duration, class: "datepicker" %>
+          <label for='end_duration'>終わり</label>
+          <%= f.date_field :end_duration, class: "datepickr" %>
+        </div>
+        <div class='mb-3'>
+          <label for='budget' class='form-label'>予算</label>
+          <%= f.number_field :budget, class: 'form-control', step: '5000', min: '10000', placeholder: '予算を入力してください' %>
+        </div>
+        <div class='mb-3'>
+          <label for='body' class='form-label'>本文</label>
+          <%= f.text_area :body, class: 'form-control', rows: 5, placeholder: '旅の思い出などを書いてください' %>
+        </div>
+        <%= f.submit '登録', class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>

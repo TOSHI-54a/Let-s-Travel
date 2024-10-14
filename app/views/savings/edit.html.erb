@@ -1,0 +1,5 @@
+<%= form_with model: @saving do |f| %>
+    <%= f.label '本文' %>
+    <%= f.text_field :value, class: 'form-control mb-3', placeholder: @saving.value %>
+    <%= f.submit '編集', class: 'btn btn-primary' %>
+<% end %>

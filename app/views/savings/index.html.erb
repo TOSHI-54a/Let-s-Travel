@@ -1,0 +1,18 @@
+<h1>Savings#index</h1>
+<h1>累計節約金額</h1>
+<h2><%= @total_savings %>円</h2>
+<% if @savings.empty? %>
+  <p>節約から始まる物語もある。</p>
+<% else %>
+  <p>これで一歩前進だ</p>
+<% end %>
+<%= render 'form', saving: @saving %>
+<div class='row'>
+  <div class='col-lg-8 offset-lg-2'>
+    <table class='table'>
+      <tbody id='table-saving'>
+        <%= render @savings %>
+      </tbody>
+    </tabel>
+  </div>
+</div>

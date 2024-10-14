@@ -7,21 +7,23 @@
           <%= link_to '旅行先を探す', new_travel_search_path, class: 'nav-link active' %>
         </li>
         <li class='nav-time'>
-          <a class='nav-link' href="#">節約する</a>
+          <%= link_to '節約する', savings_path, class: 'nav-link active' %>
         </li>
         <li class='nav-time'>
-          <a class='nav-link' href="#">旅行体験記</a>
+          <%= link_to '旅行体験記', boards_path, class: 'nav-link active' %>
         </li>
         <li class='nav-time'>
           <%= link_to '新規会員登録', new_user_path, class: 'nav-link' %>
         </li>
         <li class='nav-item'>
           <% if logged_in? %>
-            <%= link_to 'マイページ', user_path(current_user) %>
-            <%= link_to 'ログアウト', logout_path, method: :delete, data: { turbo_method: :delete }, class: 'nav-link active' %>
+            <%= link_to 'マイページ', user_path(current_user), class: 'nav-link active' %>
+            <%= link_to 'ログアウト', logout_path, method: :delete, data: { turbo: false, confirm: "本当にログアウトしますか？" }, class: 'nav-link active' %>
+            <%= current_user.name %>
           <% else %>
             <%= link_to 'ログイン', login_path, class: 'nav-link active' %>
           <% end %>
+          # logout機能がgetになる
         </li>
       </ul>
     </div>

@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'savings/new'
+  get 'savings/create'
+  get 'savings/index'
+  get 'savings/show'
+  get 'savings/edit'
+  get 'savings/update'
+  get 'savings/destroy'
   get 'travel_search/index'
   resources :users, only: %i[new create]
 
@@ -10,6 +17,10 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[new create show edit update destroy]
   resources :travel_searches, only: %i[new create index]
+  resources :boards, only: %i[index show new create edit update destroy] do
+    resources :comments, only: %i[create edit update destroy], shallow: true
+  end
+  resources :savings
 
   # Defines the root path route ("/")
   # root "articles#index"

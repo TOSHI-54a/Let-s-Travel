@@ -3,6 +3,8 @@ class User < ApplicationRecord
   has_one_attached :avatar do |attachable|
     attachable.variant :thumb, resize_to_limit: [50, 50]
   end
+  has_many :comments, dependent: :destroy
+  has_many :savings, dependent: :destroy
 
   validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
@@ -17,4 +19,9 @@ class User < ApplicationRecord
       ActionController::Base.helpers.asset_path('default_avatar.JPG')
     end
   end
+
+  def own?(object)
+    id == object&.user_id
+  end
+
 end
