@@ -21,4 +21,8 @@ services:
     volumes:
       - .:/lets_travel
     depends_on:
-      - db
+      - web
+    environment:
+      - NODE_ENV=development
+      - RAILS_ENV=development
+    command: sh -c "yarn install && yarn build"
