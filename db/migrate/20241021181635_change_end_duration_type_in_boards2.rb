@@ -2,6 +2,7 @@ class ChangeEndDurationTypeInBoards2 < ActiveRecord::Migration[7.0]
   def up
     if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
       add_column :boards, :end_duration_temp, :timestamp
+      
 
       Board.reset_column_information
 
