@@ -17,13 +17,12 @@
         </li>
         <li class='nav-item'>
           <% if logged_in? %>
-            <%= link_to 'マイページ', user_path(current_user), class: 'nav-link active' %>
-            <%= link_to 'ログアウト', logout_path, method: :delete, data: { turbo: false, confirm: "本当にログアウトしますか？" }, class: 'nav-link active' %>
-            <%= current_user.name %>
+            <p><%= link_to 'マイページ', user_path(current_user), class: 'nav-link active' %>
+            <%= button_to 'ログアウト', logout_path, method: :delete, data: { turbo: false, confirm: "本当にログアウトしますか？" }, class: 'nav-link active' %></p>
+
           <% else %>
             <%= link_to 'ログイン', login_path, class: 'nav-link active' %>
           <% end %>
-          # logout機能がgetになる
         </li>
       </ul>
     </div>

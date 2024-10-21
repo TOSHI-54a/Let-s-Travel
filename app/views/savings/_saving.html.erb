@@ -1,7 +1,7 @@
 <tr id="saving-<%= saving.id %>">
   <td>
     <p><%= saving.user.name %></p>
-    <p><%= saving.value %></p>
+    <p><%= saving.value %>円</p>
   </td>
 
   <% if current_user.own?(saving) %>
@@ -13,7 +13,7 @@
           <% end %>
         </li>
         <li class="list-inline-item">
-          <%= link_to saving_path(saving), data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+          <%= button_to saving_path(saving), method: :delete, data: { turbo_confirm: t('defaults.delete_confirm')} do %>
             <i class="fa-solid fa-trash fa-shake"></i>
           <% end %>
         </li>
