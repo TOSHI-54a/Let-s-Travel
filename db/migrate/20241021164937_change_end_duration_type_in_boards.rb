@@ -1,6 +1,6 @@
 class ChangeEndDurationTypeInBoards < ActiveRecord::Migration[7.0]
   def up
-    add_column :boards, :end_duration_temp, :timestamp
+    add_column :boards, :end_duration_temp, :timestamp_
     Board.reset_column_information
     Board.find_each do |board|
       if board.end_duration.present?
