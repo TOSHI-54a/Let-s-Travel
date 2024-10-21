@@ -1,6 +1,13 @@
 <div class="row mb-3" id="comment-form">
 <div class="col-lg-8 offset-lg-2">
   <%= form_with model: @saving, url: savings_path, local: true do |f| %>
+    <% if @saving.errors.any? %>
+      <div class='alert alert-danger'>
+        <% @saving.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </div>
+    <% end %>
     <%= f.label :節約金額 %>
     <%= f.text_field :value, class: "form-control mb-3", placeholder: '金額を入力してください。' %>
     <%= f.submit '登録', class: "btn btn-primary" %>

@@ -4,7 +4,10 @@ class CommentsController < ApplicationController
       if comment.save
         redirect_to boards_path(comment.board), success: 'コメント投稿成功'
       else
-        redirect_to boards_path(comment.board), danger: 'コメント失敗'
+        @board = Board.find(params[:board_id])
+        @comment = comment
+        @comments = @board.comments.includes(:user).order(created_at: :desc)
+        render 'boards/show', danger: 'コメント失敗'
       end
     end
 
@@ -24,7 +27,7 @@ class CommentsController < ApplicationController
     end
 
     def destroy
-      @commnet = current_user.comments.find(params[:id])
+      @comment = current_user.comments.find(params[:id])
       @comment.destroy!
     end
 

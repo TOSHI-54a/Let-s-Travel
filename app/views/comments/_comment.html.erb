@@ -1,9 +1,11 @@
 <tr id="comment-<%= comment.id %>">
   <td>
     <h3 class='small'><%= comment.user.name %></h3>
-    <p><%= simple_format(comment.body) %>
+    <h4><%= simple_format(comment.body) %></h4>
+    <p>コメント日時:<%= comment.created_at.in_time_zone('Asia/Tokyo').strftime('%Y-%m-%d %H:%M:%S') %></p>
   </td>
 
+  <% if current_user.present? %>
   <% if current_user.own?(comment) %>
     <td class="action">
       <ul class="list-inline justify-content-center" style="float: right;">
@@ -13,11 +15,12 @@
           <% end %>
         </li>
         <li class="list-inline-item">
-          <%= link_to comment_path(comment), data: { turbo_method: :delete, turbo_confirm: t('defaults.delete_confirm') } do %>
+          <%= button_to comment_path(comment), method: :delete, data: { turbo_confirm: t('defaults.delete_confirm') } do %>
             <i class="fa-solid fa-trash fa-shake"></i>
           <% end %>
         </li>
       </ul>
     </td>
+  <% end %>
   <% end %>
 </tr>
