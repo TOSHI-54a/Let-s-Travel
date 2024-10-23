@@ -11,6 +11,9 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2024_10_21_181635) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -47,12 +50,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_21_181635) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "budget"
-    t.datetime "end_duration"
+    t.datetime "end_duration", precision: nil
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "board_id"
+    t.bigint "user_id"
+    t.bigint "board_id"
     t.text "body", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -61,7 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_21_181635) do
   end
 
   create_table "savings", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.date "date_and_time"
     t.integer "value", null: false
     t.datetime "created_at", null: false
