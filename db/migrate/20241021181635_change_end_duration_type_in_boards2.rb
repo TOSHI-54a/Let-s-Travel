@@ -1,37 +1,34 @@
+# frozen_string_literal: true
+
 class ChangeEndDurationTypeInBoards2 < ActiveRecord::Migration[7.0]
   def up
-    if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
-      add_column :boards, :end_duration_temp, :timestamp
-      
+    return unless ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
 
-      Board.reset_column_information
+    add_column :boards, :end_duration_temp, :timestamp
 
-      Board.find_each do |board|
-        if board.end_duration.present?
-          board.update_column(:end_duration_temp, board.end_duration.to_s)
-        end
-      end
+    Board.reset_column_information
 
-      remove_column :boards, :end_duration
-
-      rename_column :boards, :end_duration_temp, :end_duration
+    Board.find_each do |board|
+      board.update_column(:end_duration_temp, board.end_duration.to_s) if board.end_duration.present?
     end
+
+    remove_column :boards, :end_duration
+
+    rename_column :boards, :end_duration_temp, :end_duration
   end
 
   def down
-    if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
-      add_column :boards, :end_duration_temp, :date
+    return unless ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
 
-      Board.reset_column_information
+    add_column :boards, :end_duration_temp, :date
 
-      Board.find_each do |board|
-        if board.end_duration.present?
-          board.update_column(:end_duration_temp, board.end_duration.to_date)
-        end
-      end
+    Board.reset_column_information
 
-      remove_column :boards, :end_duration
-      rename_column :boards, :end_duration_temp, :end_duration
+    Board.find_each do |board|
+      board.update_column(:end_duration_temp, board.end_duration.to_date) if board.end_duration.present?
     end
+
+    remove_column :boards, :end_duration
+    rename_column :boards, :end_duration_temp, :end_duration
   end
 end

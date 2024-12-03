@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'httparty'
 require 'dotenv/load'
 
@@ -6,17 +8,17 @@ class DeepLClient
 
   def initialize(api_key)
     @headers = {
-      "Content-Type" => "application/x-www-form-urlencoded",
+      'Content-Type' => 'application/x-www-form-urlencoded'
     }
     @api_key = api_key
   end
 
   def translate(text)
     response = self.class.post('https://api-free.deepl.com/v2/translate', headers: @headers, body: {
-      auth_key: @api_key,
-      text: text,
-      target_lang: 'JA'
-    })
+                                 auth_key: @api_key,
+                                 text:,
+                                 target_lang: 'JA'
+                               })
     parsed_response(response)
   end
 
@@ -24,10 +26,14 @@ class DeepLClient
 
   def parsed_response(response)
     if response.success?
-      translation = JSON.parse(response.body)["translations"].first["text"]
-      translation
+      JSON.parse(response.body)['translations'].first['text']
+
     else
-      error_message = JSON.parse(response.body)["message"] rescue "Unknown error occurred"
+      error_message = begin
+        JSON.parse(response.body)['message']
+      rescue StandardError
+        'Unknown error occurred'
+      end
       "Error: Unable to translate. #{error_message}"
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   authenticates_with_sorcery!
   has_one_attached :avatar do |attachable|
@@ -14,7 +16,14 @@ class User < ApplicationRecord
 
   def avatar_url(variant: nil)
     if avatar.attached?
-      variant ? Rails.application.routes.url_helpers.rails_representation_url(avatar.variant(variant), only_path: true) : Rails.application.routes.url_helpers.rails_blob_path(avatar, only_path: true)
+      if variant
+        Rails.application.routes.url_helpers.rails_representation_url(avatar.variant(variant),
+                                                                      only_path: true)
+      else
+        Rails.application.routes.url_helpers.rails_blob_path(
+          avatar, only_path: true
+        )
+      end
     else
       ActionController::Base.helpers.asset_path('default_avatar.JPG')
     end
@@ -23,5 +32,4 @@ class User < ApplicationRecord
   def own?(object)
     id == object&.user_id
   end
-
 end

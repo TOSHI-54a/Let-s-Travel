@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
   skip_before_action :require_login, only: %i[new create]
   before_action :set_user, only: %i[edit update]
@@ -12,7 +14,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to root_path, success: 'ユーザー登録が完了しました'
     else
-      flash.now[:danger] ='ユーザー登録に失敗しました'
+      flash.now[:danger] = 'ユーザー登録に失敗しました'
       render :new, status: :unprocessable_entity
     end
   end
@@ -25,15 +27,14 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(edit_params)
-      redirect_to user_path, flash: { success: "ユーザー情報を更新しました"}
+      redirect_to user_path, flash: { success: 'ユーザー情報を更新しました' }
     else
-      flash.now[:danger]= "ユーザー情報を更新できませんでした"
+      flash.now[:danger] = 'ユーザー情報を更新できませんでした'
       render :edit, status: :unprocessable_entity
     end
   end
 
-  def destroy
-  end
+  def destroy; end
 
   private
 

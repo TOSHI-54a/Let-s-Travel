@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 class SavingsController < ApplicationController
   before_action :set_user, only: %i[show edit update]
   before_action :set_saving, only: %i[edit update destroy]
 
-  def new
-  end
+  def new; end
 
   def create
     @saving = current_user.savings.new(saving_params)
@@ -23,8 +24,7 @@ class SavingsController < ApplicationController
     @total_savings = @savings.sum(:value)
   end
 
-  def show
-  end
+  def show; end
 
   def edit; end
 
@@ -62,5 +62,4 @@ class SavingsController < ApplicationController
   def set_saving
     @saving = Saving.find(params[:id])
   end
-
 end
