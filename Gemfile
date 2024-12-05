@@ -66,6 +66,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'letter_opener_web', '2.0.0'
   gem 'sqlite3', '~> 1.4'
+  gem 'rspec-rails', '~> 6.0'
 end
 
 group :development do
