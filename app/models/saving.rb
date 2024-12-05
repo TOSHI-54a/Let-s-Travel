@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Saving < ApplicationRecord
   belongs_to :user
   validates :value, presence: true, numericality: { greater_than: 0 }

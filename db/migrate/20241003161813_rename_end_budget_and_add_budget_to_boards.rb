@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 class RenameEndBudgetAndAddBudgetToBoards < ActiveRecord::Migration[7.0]
   def up
     # カラムのリネーム
     rename_column :boards, :end_budget, :end_duration
-    
+
     if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
       # 新しい一時カラムを追加して、データを移行する
       add_column :boards, :end_duration_temp, :timestamp
-      
+
       # 既存のintegerデータを新しいtimestampカラムに変換
       Board.reset_column_information
       Board.find_each do |board|
@@ -23,7 +25,7 @@ class RenameEndBudgetAndAddBudgetToBoards < ActiveRecord::Migration[7.0]
       # 他のデータベースではそのままdatetime型に変更
       change_column :boards, :end_duration, :datetime
     end
-    
+
     # budgetカラムを追加
     add_column :boards, :budget, :integer
   end
@@ -37,9 +39,7 @@ class RenameEndBudgetAndAddBudgetToBoards < ActiveRecord::Migration[7.0]
 
       Board.reset_column_information
       Board.find_each do |board|
-        if board.end_budget.present?
-          board.update_column(:end_budget_temp, board.end_budget.to_i)
-        end
+        board.update_column(:end_budget_temp, board.end_budget.to_i) if board.end_budget.present?
       end
 
       remove_column :boards, :end_budget
