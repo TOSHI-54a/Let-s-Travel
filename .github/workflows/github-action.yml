@@ -9,13 +9,19 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     services:
-      mysql:
-        image: mysql:8.0
+      postgres:
+        image: postgres: 14
         ports:
-          - 3306:3306
+          - 5432:5432
         env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: test_database
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
 
     steps:
       - name: Checkout code
@@ -26,14 +32,6 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Cache node modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
       - name: Bundler and gem install
         run: |
           gem install bundler
@@ -41,6 +39,20 @@ jobs:
 
       - name: Yarn install
         run: yarn install --check-files
+
+      - name: Generate database.yml.ci
+        run: |
+          echo "default: &default" > config/database.yml.ci
+          echo "  adapter: postgresql" >> config/database.yml.ci
+          echo "  encoding: unicode" >> config/database.yml.ci
+          echo "  pool: 5" >> config/database.yml.ci
+          echo "  username: postgres" >> config/database.yml.ci
+          echo "  password: password" >> config/database.yml.ci
+          echo "  host: localhost" >> config/database.yml.ci
+          echo "" >> config/database.yml.ci
+          echo "test:" >> config/database.yml.ci
+          echo "  <<: *default" >> config/database.yml.ci
+          echo "  database: test_database" >> config/database.yml.ci
 
       - name: Database create and migrate
         run: |
