@@ -1,0 +1,20 @@
+Style/Documentation:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 30 # デフォルトは17
+
+Metrics/MethodLength:
+  Max: 25 # デフォルトは10～15
+
+Metrics/PerceivedComplexity:
+  Max: 12 # デフォルトは8
+
+Layout/LineLength:
+  Max: 210 # デフォルトは150
+
+Metrics/CyclomaticComplexity:
+  Max: 10 # デフォルトは6～7
+
+Metrics/BlockLength:
+  Max: 100 # デフォルトは25
