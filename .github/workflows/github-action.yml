@@ -10,7 +10,7 @@ jobs:
     timeout-minutes: 10
     services:
       postgres:
-        image: postgres: 14
+        image: postgres:14
         ports:
           - 5432:5432
         env:
