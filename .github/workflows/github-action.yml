@@ -1,0 +1,79 @@
+name: Run rspec, rubocop
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  rspec:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:14
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: test_database
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Bundler and gem install
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3 --path vendor/bundle
+
+      - name: Yarn install
+        run: yarn install --check-files
+
+      - name: Generate database.yml.ci
+        run: |
+          echo "default: &default" > config/database.yml.ci
+          echo "  adapter: postgresql" >> config/database.yml.ci
+          echo "  encoding: unicode" >> config/database.yml.ci
+          echo "  pool: 5" >> config/database.yml.ci
+          echo "  username: postgres" >> config/database.yml.ci
+          echo "  password: password" >> config/database.yml.ci
+          echo "  host: localhost" >> config/database.yml.ci
+          echo "" >> config/database.yml.ci
+          echo "test:" >> config/database.yml.ci
+          echo "  <<: *default" >> config/database.yml.ci
+          echo "  database: test_database" >> config/database.yml.ci
+
+      - name: Database create and migrate
+        run: |
+          cp config/database.yml.ci config/database.yml
+          bundle exec rails db:create RAILS_ENV=test
+          bundle exec rails db:migrate RAILS_ENV=test
+
+      - name: Run rspec
+        run: bundle exec rspec
+
+  rubocop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Run rubocop
+        run: bundle exec rubocop
