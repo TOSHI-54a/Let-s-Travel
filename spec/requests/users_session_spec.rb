@@ -12,8 +12,8 @@ RSpec.describe 'User', type: :request do
     end
 
     it 'ログインに成功すること' do
-        login_user(user, 'password')
-        expect(response).to redirect_to root_path
+      login_user(user, 'password')
+      expect(response).to redirect_to root_path
     end
 
     it 'ユーザー情報へアクセスできること' do
@@ -26,18 +26,17 @@ RSpec.describe 'User', type: :request do
   describe 'build_userで' do
     let(:user) { build(:user) }
     it 'ログインに失敗すること' do
-        login_user(user, 'password')
-        expect(response.body).to include "ログインに失敗しました"
+      login_user(user, 'password')
+      expect(response.body).to include 'ログインに失敗しました'
     end
   end
 
   describe 'logout' do
     let(:user) { create(:user) }
     it 'ログアウトできること' do
-        login_user(user, 'password')
-        delete logout_path
-        expect(session[:user_id]).to be_nil
+      login_user(user, 'password')
+      delete logout_path
+      expect(session[:user_id]).to be_nil
     end
   end
-
 end
