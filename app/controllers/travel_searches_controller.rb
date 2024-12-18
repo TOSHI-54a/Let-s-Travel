@@ -14,29 +14,23 @@ class TravelSearchesController < ApplicationController
   def create
     @travel_search = TravelSearch.new(recommendation_params)
 
-    if @travel_search.valid?
-      client = ChatGptClient.new
-      recommendations = client.get_recommendations(recommendation_params)
+    unless @travel_search.valid?
+      handle_error('Please fill in all the required fields')
+      return
+    end
 
-      if @recommendations.is_a?(String) && recommendations.start_with?('Error')
-        flash[:error] = recommendations
-        render :new
-      else
-        deepl_client = DeepLClient.new(ENV['DEEPL_API_KEY'])
-        @recommendations = recommendations.map do |recommendation|
-          deepl_client.translate(recommendation)
-        end
+    recommendations = fetch_recommendations(recommendation_params)
+    return if recommendations.nil?
 
-        if @recommendations.any? { |r| r.start_with?('Error') }
-          flash[:error] = 'Some translations failed.'
-          render :new
-        else
-          render :index
-        end
-      end
+    @recommendations = translate_recommendations(recommendations)
+    if @recommendations.any? { |r| r.start_with?('Error') }
+      handle_error('Some translations failed.')
     else
-      flash[:error] = 'Please fill in all the required fields'
-      render :new
+      if request.format.json?
+        render json: { recommendations: @recommendations }, status: :ok
+      else
+        render :index
+      end
     end
   end
 
@@ -46,7 +40,26 @@ class TravelSearchesController < ApplicationController
     params.require(:travel_search).permit(:number, :gender, :age, :budget)
   end
 
-  def search_params
-    params.permit(:number, :gender, :age, :budget)
+  def fetch_recommendations(params)
+    client = ChatGptClient.new
+    result = client.get_recommendations(params)
+    return result unless result.is_a?(String) && result.start_with?('Error')
+
+    handle_error(result)
+    nil
+  end
+
+  def translate_recommendations(recommendations)
+    deepl_client = DeepLClient.new(ENV['DEEPL_API_KEY'])
+    recommendations.map { |recommendation| deepl_client.translate(recommendation) }
+  end
+
+  def handle_error(message)
+    if request.format.json?
+      render json: { error: message }, status: :unprocessable_entity
+    else
+      flash[:error] = message
+      render :new
+    end
   end
 end
