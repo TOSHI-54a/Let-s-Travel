@@ -25,12 +25,10 @@ class TravelSearchesController < ApplicationController
     @recommendations = translate_recommendations(recommendations)
     if @recommendations.any? { |r| r.start_with?('Error') }
       handle_error('Some translations failed.')
+    elsif request.format.json?
+      render json: { recommendations: @recommendations }, status: :ok
     else
-      if request.format.json?
-        render json: { recommendations: @recommendations }, status: :ok
-      else
-        render :index
-      end
+      render :index
     end
   end
 
