@@ -38,6 +38,7 @@ gem 'httparty'
 gem 'jquery-rails'
 gem 'jsbundling-rails'
 gem 'sassc-rails'
+gem 'googleauth'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
