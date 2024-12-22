@@ -34,11 +34,11 @@ gem 'sorcery'
 gem 'bootstrap'
 gem 'deepl-rb', require: 'deepl'
 gem 'dotenv-rails'
+gem 'googleauth'
 gem 'httparty'
 gem 'jquery-rails'
 gem 'jsbundling-rails'
 gem 'sassc-rails'
-gem 'googleauth'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"

@@ -88,7 +88,8 @@ RSpec.describe 'Travel Searches API', type: :request do
     end
 
     context 'with valid parameters' do
-      it 'returns travel recommendations', skip: 'This test is not ready yet' do
+      it 'returns travel recommendations' do
+        pending 'This test is not ready yet'
         post travel_searches_path, params: valid_params, as: :json
 
         # ステータスコードの確認

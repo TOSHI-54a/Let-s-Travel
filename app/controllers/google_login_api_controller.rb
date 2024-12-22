@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 class GoogleLoginApiController < ApplicationController
   require 'googleauth/id_tokens/verifier'
-  
+
   skip_before_action :require_login
   protect_from_forgery except: :callback
   before_action :verify_g_csrf_token
 
   def callback
-    payload = Google::Auth::IDTokens.verify_oidc(params[:credential], aud: "802231099292-dgt2tmi7g2haiutjqk6g445vtpuqtf2e.apps.googleusercontent.com")
+    payload = Google::Auth::IDTokens.verify_oidc(params[:credential], aud: '802231099292-dgt2tmi7g2haiutjqk6g445vtpuqtf2e.apps.googleusercontent.com')
     user = User.find_or_initialize_by(email: payload['email'])
     if user.new_record?
       user.name = payload['name']
@@ -30,9 +32,9 @@ class GoogleLoginApiController < ApplicationController
   private
 
   def verify_g_csrf_token
-    if cookies["g_csrf_token"].blank? || params[:g_csrf_token].blank? || cookies["g_csrf_token"] != params[:g_csrf_token]
-      flash.now[:danger] = '不正なアクセスです'
-      redirect_to new_user_session_path, notice: "失敗"
-    end
+    return unless cookies['g_csrf_token'].blank? || params[:g_csrf_token].blank? || cookies['g_csrf_token'] != params[:g_csrf_token]
+
+    flash.now[:danger] = '不正なアクセスです'
+    redirect_to new_user_session_path, notice: '失敗'
   end
 end
