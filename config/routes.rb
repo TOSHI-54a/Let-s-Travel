@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  post 'google_login_api/callback'
   get 'savings/new'
   get 'savings/create'
   get 'savings/index'

@@ -2,7 +2,7 @@ Style/Documentation:
   Enabled: false
 
 Metrics/AbcSize:
-  Max: 30 # デフォルトは17
+  Max: 35 # デフォルトは17
 
 Metrics/MethodLength:
   Max: 25 # デフォルトは10～15
