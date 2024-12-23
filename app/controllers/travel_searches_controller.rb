@@ -35,7 +35,7 @@ class TravelSearchesController < ApplicationController
   private
 
   def recommendation_params
-    params.require(:travel_search).permit(:number, :gender, :age, :budget)
+    params.require(:travel_search).permit(:number, :gender, :age, :budget, :in_or_out, :departure, :hobby)
   end
 
   def fetch_recommendations(params)
