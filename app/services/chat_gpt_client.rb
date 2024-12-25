@@ -19,7 +19,7 @@ class ChatGptClient
     body = {
       model: 'gpt-3.5-turbo',
       messages: [
-        { role: 'system', content: 'You are a helpful travel assistant.' },
+        { role: 'system', content: 'You are a helpful travel assistant for Japanese travelers.' },
         { role: 'user', content: generate_prompt(params) }
       ],
       max_tokens: 150,
@@ -33,7 +33,11 @@ class ChatGptClient
   private
 
   def generate_prompt(params)
-    "Recommend 3 travel destinations for a group of #{params[:number]} #{params[:gender]} aged #{params[:age]} with a budget of #{params[:budget]}. Provide the city names and a brief description of each."
+    departure = params[:departure] || 'Tokyo'
+    hobby = params[:hobby] ? " Their hobby is #{params[:hobby]}." : ''
+    "Recommend 3 #{params[:in_or_out]} travel destinations for a group of #{params[:number]} " \
+    "#{params[:gender]} aged #{params[:age]} with a budget of #{params[:budget]}JPY. "\
+    "The departure point is #{departure}.#{hobby} Provide the city names and a brief description of each."
   end
 
   def parsed_response(response)

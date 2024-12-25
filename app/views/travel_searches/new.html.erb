@@ -18,7 +18,24 @@
 
     <div class='mb-3'>
       <%= f.label :budget, "予算", class: 'form-label' %>
-      <%= f.select :budget, options_for_select((5..50).step(5).map { |budget| ["#{budget}万円", budget * 10000] }), {}, class: 'form-select' %>
+      <%= f.select :budget, options_for_select((5..100).step(5).map { |budget| ["#{budget}万円", budget * 10000] }), {}, class: 'form-select' %>
+    </div>
+
+    <div class='mb-3'>
+      <%= f.label :in_or_out, "国内or海外", class: 'form-label' %>
+      <%= f.select :in_or_out, options_for_select([
+        ['国内', 'domestic'], ['海外', 'international']
+      ]), {}, class: 'form-select' %>
+    </div>
+
+    <div class='mb-3'>
+      <%= f.label :departure, "出発地", class: 'form-label d-block' %>
+      <%= f.text_field :departure, placeholder: "出発地を入力してください（例：東京、福岡）", class: 'form-control w-50' %>
+    </div>
+
+    <div class='mb-3'>
+      <%= f.label :hobby, "やりたい事や趣味", class: 'form-label d-block' %>
+      <%= f.text_field :hobby, placeholder: "旅行先で体験したい事や普段の趣味を簡単に入力してください", class: 'form-control w-50' %>
     </div>
 
     <%= f.submit "検索", class: "btn btn-primary" %>
