@@ -11,7 +11,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      session[:user_id] = @user.id
+      auto_login(@user)
+      # session[:user_id] = @user.idではセッションの有効期限やRemember Meを自分で実装しなければいけない
       redirect_to root_path, success: 'ユーザー登録が完了しました'
     else
       flash.now[:danger] = 'ユーザー登録に失敗しました'
