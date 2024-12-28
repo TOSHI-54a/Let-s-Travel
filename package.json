@@ -8,7 +8,8 @@
     "test": "test"
   },
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets --loader:.js=jsx"
+    "build": "node esbuild.config.js",
+    "watch": "node esbuild.config.js --watch"
   },
   "repository": {
     "type": "git",
@@ -23,11 +24,11 @@
   "homepage": "https://github.com/TOSHI-54a/Let-s-Travel#readme",
   "dependencies": {
     "@hotwired/stimulus": "^3.0.0",
-    "@hotwired/turbo-rails": "^8.0.10",
+    "@hotwired/turbo-rails": "^8.0.12",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3"
   },
   "devDependencies": {
-    "esbuild": "^0.24.0"
+    "esbuild": "^0.24.2"
   }
 }
