@@ -1,9 +1,16 @@
-import { Application } from "@hotwired/stimulus"
+import { Application } from "@hotwired/stimulus";
+import "@hotwired/turbo";
+import MenuController from "./menu_controller";
+import "bootstrap";
 
-const application = Application.start()
+const application = Application.start();
+application.register("menu", MenuController);
 
 // Configure Stimulus development experience
-application.debug = false
-window.Stimulus   = application
+application.debug = true;
+window.Stimulus   = application;
+console.log("Stimulus initialized!");
 
-export { application }
+document.querySelector('.hamburger').style.display = 'none';
+
+export { application };
