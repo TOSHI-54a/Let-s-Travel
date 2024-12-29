@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "node esbuild.config.js",
+    "build:css": "sass app/assets/stylesheets/application.scss app/assets/builds/application.css --no-source-map",
     "watch": "node esbuild.config.js --watch"
   },
   "repository": {
@@ -26,7 +27,8 @@
     "@hotwired/stimulus": "^3.0.0",
     "@hotwired/turbo-rails": "^8.0.12",
     "@popperjs/core": "^2.11.8",
-    "bootstrap": "^5.3.3"
+    "bootstrap": "^5.3.3",
+    "sass": "^1.83.0"
   },
   "devDependencies": {
     "esbuild": "^0.24.2"

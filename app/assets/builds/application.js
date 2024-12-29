@@ -7789,6 +7789,7 @@
     toggle() {
       console.log("Toggle triggered");
       this.menuTarget.classList.toggle("active");
+      alert("Toggle activated!");
     }
   };
   __publicField(menu_controller_default, "targets", ["menu"]);

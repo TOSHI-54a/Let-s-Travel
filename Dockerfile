@@ -11,5 +11,4 @@ COPY . /lets_travel
 RUN bundle install
 RUN yarn install
 RUN yarn build
-RUN rails assets:precompile
 CMD ["rails", "server", "-b", "0.0.0.0"]

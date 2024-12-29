@@ -11,12 +11,6 @@ application.debug = true;
 window.Stimulus   = application;
 console.log("Stimulus initialized!");
 
-document.addEventListener("DOMContentLoaded", () => {
-    const body = document.querySelector("body");
-    if (body) {
-        body.style.backgroundColor = "lightblue";
-        console.log("application.js has changed the background color!");
-    }
-});
+
 
 export { application };

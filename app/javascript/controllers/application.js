@@ -11,4 +11,6 @@ application.debug = true;
 window.Stimulus   = application;
 console.log("Stimulus initialized!");
 
+document.querySelector('.hamburger').style.display = 'none';
+
 export { application };
