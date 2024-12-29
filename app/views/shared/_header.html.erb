@@ -4,12 +4,6 @@
       <h6>
         <%= link_to "Let's Travel!!", root_path, class: 'navbar-brand' %>
       </h6>
-      <!-- ハンバーガーボタン -->
-      <div class="hamburger" data-action="click->menu#toggle">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
       
       <!-- ナビゲーションメニュー -->
       <ul class="menu" data-menu-target="menu">
@@ -34,6 +28,13 @@
           <% end %>
         </li>
       </ul>
+
+      <!-- ハンバーガーボタン -->
+      <div class="hamburger" data-action='click->menu#toggle'>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
   </nav>
 </header>

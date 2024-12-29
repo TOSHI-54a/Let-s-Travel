@@ -1,4 +1,4 @@
-<%= form_with model: @travel_search, url: travel_searches_path, method: :post, data: { action: "loading#show" }, local: true do |f| %>
+<%= form_with model: @travel_search, url: travel_searches_path, method: :post, data: { turbo: false, action: "loading#show" }, local: true do |f| %>
     <div class='mb-3'>
       <%= f.label :number, "人数", class: 'form-label' %>
       <%= f.select :number, options_for_select((1..10).map { |n| ["#{n}人", n] }), {}, class: 'form-select' %>

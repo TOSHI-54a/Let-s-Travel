@@ -6,5 +6,7 @@ FactoryBot.define do
     email { Faker::Internet.email }
     password { 'password' }
     password_confirmation { 'password' }
+
+    to_create { |instance| instance.save(validate: false) }
   end
 end
