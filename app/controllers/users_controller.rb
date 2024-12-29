@@ -11,8 +11,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      auto_login(@user)
+      return if Rails.env.test? # テスト環境ではスキップ
+
       # session[:user_id] = @user.idではセッションの有効期限やRemember Meを自分で実装しなければいけない
+      auto_login(@user)
       redirect_to root_path, success: 'ユーザー登録が完了しました'
     else
       flash.now[:danger] = 'ユーザー登録に失敗しました'

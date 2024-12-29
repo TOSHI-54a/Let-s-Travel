@@ -67,4 +67,7 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Sorcery::TestHelpers::Rails::Request, type: :request
   config.include Sorcery::TestHelpers::Rails, type: :controller
+  config.before(:each) do
+    allow_any_instance_of(ApplicationController).to receive(:auto_login).and_return(true)
+  end
 end

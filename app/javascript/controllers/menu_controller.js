@@ -7,9 +7,14 @@ export default class extends Controller {
     console.log("MenuController connected!");
   }
 
+  connect() {
+    console.log("MenuController connected!");
+    console.log(this.menuTarget.classList); // 初期状態を確認
+  }
+
   toggle() {
     console.log("Toggle triggered");
+    console.log(this.menuTarget.classList);
     this.menuTarget.classList.toggle("active");
-    alert("Toggle activated!"); // デバッグ用
   }
 }
