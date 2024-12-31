@@ -7785,9 +7785,6 @@
   var menu_controller_default = class extends Controller {
     connect() {
       console.log("MenuController connected!");
-    }
-    connect() {
-      console.log("MenuController connected!");
       console.log(this.menuTarget.classList);
     }
     toggle() {
