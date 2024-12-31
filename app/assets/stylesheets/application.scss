@@ -14,12 +14,15 @@
  *= require_self
  */
 /* グローバルスタイル */
+
+@use 'title';
+
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #f4f4f4;
+    background-color: #c3f2ff;
 }
 
 .navbar .menu {
@@ -72,4 +75,33 @@
     .menu.active {
         display: flex; /* ハンバーガーメニューをクリックで表示 */
     }
+}
+
+.navbar-brand {
+    font-size: 2.5rem;
+    color: #ff7f50; /* 明るいオレンジで目を引く */
+    text-align: center;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-top: 20px;
+}
+
+body {
+    background: url('plane.jpg');
+    /* background-color: #87cefa; /* 青空からのグラデーション */
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.form-label {
+    background-color: rgba(255, 255, 255, 0.5); /* 背景の白に透過を追加 */
+    backdrop-filter: blur(5px); /* ボカシ効果 */
+    padding: 5px 10px; /* 内側の余白を設定 */
+    border-radius: 5px; /* 角を丸くする */
+    display: inline-block; /* サイズをテキストに合わせる */
+    color: #333; /* 文字の色を調整 */
 }
