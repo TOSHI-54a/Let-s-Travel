@@ -5,10 +5,6 @@ export default class extends Controller {
 
   connect() {
     console.log("MenuController connected!");
-  }
-
-  connect() {
-    console.log("MenuController connected!");
     console.log(this.menuTarget.classList); // 初期状態を確認
   }
 

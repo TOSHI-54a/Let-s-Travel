@@ -50,7 +50,7 @@
 }
 
 /* レスポンシブスタイル */
-@media (max-width: 700px) {
+@media (max-width: 1023px) {
     .hamburger {
         display: flex !important; /* 幅700px以下で表示 */
     }
