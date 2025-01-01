@@ -85,7 +85,7 @@
 }
 
 body {
-    background: url('plane.jpg');
+    background: url(asset-path("plane.jpg"));
     /* background-color: #87cefa; /* 青空からのグラデーション */
     background-repeat: no-repeat;
     background-size: cover;
