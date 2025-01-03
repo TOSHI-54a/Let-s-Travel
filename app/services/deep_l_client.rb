@@ -17,7 +17,8 @@ class DeepLClient
     response = self.class.post('https://api-free.deepl.com/v2/translate', headers: @headers, body: {
                                  auth_key: @api_key,
                                  text: text,
-                                 target_lang: 'JA'
+                                 target_lang: 'JA',
+                                 preserve_formatting: 1
                                })
     parsed_response(response)
   end
