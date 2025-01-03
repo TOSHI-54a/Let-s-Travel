@@ -23,7 +23,7 @@ class ChatGptClient
         { role: 'user', content: generate_prompt(params) }
       ],
       max_tokens: 150,
-      temperature: 0.7
+      temperature: 0.3
     }.to_json
 
     response = self.class.post('https://api.openai.com/v1/chat/completions', headers: @headers, body:)

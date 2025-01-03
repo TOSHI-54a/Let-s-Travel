@@ -3,7 +3,12 @@
   <% if @recommendations.present? %>
     <ul>
       <% @recommendations.each do |recommendation| %>
-        <li><%= recommendation[:city] %>: <%= recommendation[:description] %></li>
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title"><%= recommendation[:city] %></h5>
+              <p class="card-text"><%= recommendation[:description] %></p>
+            </div>
+        </div>
       <% end %>
     </ul>
   <% else %>
