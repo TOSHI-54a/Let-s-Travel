@@ -33,17 +33,21 @@ class ChatGptClient
   private
 
   def generate_prompt(params)
-    departure = params[:departure] || 'Tokyo'
-    hobby = params[:hobby] ? " Their hobby is #{params[:hobby]}." : ''
+    departure = params[:departure].presence || 'Tokyo'
+    hobby = params[:hobby].present? ? " Their hobby is #{params[:hobby]}." : ''
     "Recommend 3 #{params[:in_or_out]} travel destinations for a group of #{params[:number]} " \
     "#{params[:gender]} aged #{params[:age]} with a budget of #{params[:budget]}JPY. "\
-    "The departure point is #{departure}.#{hobby} Provide the city names and a brief description of each."
+    "The departure point is #{departure}.#{hobby} "\
+    "Return the response in the following JSON format:\n" \
+    "[\n  {\"city\": \"<city_name1>\", \"description\": \"<brief_description1>\"},\n" \
+    "  {\"city\": \"<city_name2>\", \"description\": \"<brief_description2>\"},\n" \
+    "  {\"city\": \"<city_name3>\", \"description\": \"<brief_description3>\"}\n]"
   end
 
   def parsed_response(response)
+    Rails.logger.debug { "RESponse: #{response}" }
     if response.success?
-      recommendations = JSON.parse(response.body)['choices'].first['message']['content']
-      format_recommendations(recommendations)
+      JSON.parse(response.body)['choices'].first['message']['content']
     else
       error_message = begin
         JSON.parse(response.body)['error']['message']
@@ -52,9 +56,5 @@ class ChatGptClient
       end
       "Error: Unable to fetch recommendations. #{error_message}"
     end
-  end
-
-  def format_recommendations(recommendations)
-    recommendations.split("\n").map(&:strip).reject(&:empty?)
   end
 end
