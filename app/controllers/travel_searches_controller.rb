@@ -54,7 +54,11 @@ class TravelSearchesController < ApplicationController
   def format_recommendations(recommendations)
     # JSONレスポンスをパースし、期待される形式で返す
     recommendations = recommendations.gsub(/```json|```/, '')
-    parsed_recommendations = JSON.parse(recommendations) rescue []
+    parsed_recommendations = begin
+      JSON.parse(recommendations)
+    rescue StandardError
+      []
+    end
     parsed_recommendations.map do |recommendation|
       if recommendation['city'] && recommendation['description']
         { city: recommendation['city'], description: recommendation['description'] }
@@ -67,13 +71,11 @@ class TravelSearchesController < ApplicationController
   def translate_recommendations(recommendations)
     deepl_client = DeepLClient.new(ENV['DEEPL_API_KEY'])
     recommendations.map do |recommendation|
-      begin
-        translated_city = deepl_client.translate(recommendation[:city])
-        translated_description = deepl_client.translate(recommendation[:description])
-        { city: translated_city, description: translated_description }
-      rescue StandardError => e
-        { city: recommendation[:city], description: "Translation error: #{e.message}" }
-      end
+      translated_city = deepl_client.translate(recommendation[:city])
+      translated_description = deepl_client.translate(recommendation[:description])
+      { city: translated_city, description: translated_description }
+    rescue StandardError => e
+      { city: recommendation[:city], description: "Translation error: #{e.message}" }
     end
   end
 

@@ -45,7 +45,7 @@ class ChatGptClient
   end
 
   def parsed_response(response)
-    Rails.logger.debug { "RESponse: #{response}"}
+    Rails.logger.debug { "RESponse: #{response}" }
     if response.success?
       JSON.parse(response.body)['choices'].first['message']['content']
     else
@@ -57,7 +57,4 @@ class ChatGptClient
       "Error: Unable to fetch recommendations. #{error_message}"
     end
   end
-
-  
-  
 end
