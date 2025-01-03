@@ -1,12 +1,12 @@
 <div class='col-md-10 col-lg-8 mx-auto'>
-<h1>おすすめの旅行先</h1>
-<% if @recommendations.present? %>
-  <ul>
-    <% @recommendations.each do |recommendation| %>
-        <li><%= recommendation %></li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>No recommendations available. </p>
-<% end %>
+  <h1>おすすめの旅行先</h1>
+  <% if @recommendations.present? %>
+    <ul>
+      <% @recommendations.each do |recommendation| %>
+        <li><%= recommendation[:city] %>: <%= recommendation[:description] %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No recommendations available.</p>
+  <% end %>
 </div>
