@@ -32,6 +32,7 @@ gem 'jbuilder'
 gem 'sorcery'
 
 gem 'bootstrap'
+gem 'config'
 gem 'deepl-rb', require: 'deepl'
 gem 'dotenv-rails'
 gem 'googleauth'

@@ -11,6 +11,8 @@
     <%= f.submit 'ログイン' %>
   <% end %>
 
+<%
+=begin %>
   <div id="g_id_onload"
     data-client_id="802231099292-dgt2tmi7g2haiutjqk6g445vtpuqtf2e.apps.googleusercontent.com"
     data-login_uri="http://localhost:3000/google_login_api/callback"
@@ -24,6 +26,14 @@
     data-shape="rectangular"
     data-logo_alignment="left">
   </div>
+
+<%
+=end %>
+  <%= link_to 'Login with Google', auth_at_provider_path(provider: :google), 
+    class: 'btn btn-outline-primary', 
+    rel: 'nofollow', 
+    data: { turbo: false } %>
+
   <div class='text-center'>
     <%= link_to 'アカウントを作成', new_user_path %>
   </div>

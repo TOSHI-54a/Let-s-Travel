@@ -6,78 +6,81 @@
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging,
 # :magic_login, :external
-Rails.application.config.sorcery.submodules = []
+Rails.application.config.sorcery.submodules = [:external]
 
 # Here you can configure each submodule's features.
+# -- core --
+# What controller action to call for non-authenticated users. You can also
+# override the 'not_authenticated' method of course.
+# Default: `:not_authenticated`
+#
+# config.not_authenticated_action =
+
+# When a non logged-in user tries to enter a page that requires login, save
+# the URL he wants to reach, and send him there after login, using 'redirect_back_or_to'.
+# Default: `true`
+#
+# config.save_return_to_url =
+
+# Set domain option for cookies; Useful for remember_me submodule.
+# Default: `nil`
+#
+# config.cookie_domain =
+
+# Allow the remember_me cookie to be set through AJAX
+# Default: `true`
+#
+# config.remember_me_httponly =
+
+# Set token randomness. (e.g. user activation tokens)
+# The length of the result string is about 4/3 of `token_randomness`.
+# Default: `15`
+#
+# config.token_randomness =
+
+# -- session timeout --
+# How long in seconds to keep the session alive.
+# Default: `3600`
+#
+# config.session_timeout =
+
+# Use the last action as the beginning of session timeout.
+# Default: `false`
+#
+# config.session_timeout_from_last_action =
+
+# Invalidate active sessions. Requires an `invalidate_sessions_before` timestamp column
+# Default: `false`
+#
+# config.session_timeout_invalidate_active_sessions_enabled =
+
+# -- http_basic_auth --
+# What realm to display for which controller name. For example {"My App" => "Application"}
+# Default: `{"application" => "Application"}`
+#
+# config.controller_to_realm_map =
+
+# -- activity logging --
+# Will register the time of last user login, every login.
+# Default: `true`
+#
+# config.register_login_time =
+
+# Will register the time of last user logout, every logout.
+# Default: `true`
+#
+# config.register_logout_time =
+
+# Will register the time of last user action, every action.
+# Default: `true`
+#
+# config.register_last_activity_time =
+
+# -- external --
+Rails.application.config.sorcery.submodules = [:external]
+
 Rails.application.config.sorcery.configure do |config|
-  # -- core --
-  # What controller action to call for non-authenticated users. You can also
-  # override the 'not_authenticated' method of course.
-  # Default: `:not_authenticated`
-  #
-  # config.not_authenticated_action =
-
-  # When a non logged-in user tries to enter a page that requires login, save
-  # the URL he wants to reach, and send him there after login, using 'redirect_back_or_to'.
-  # Default: `true`
-  #
-  # config.save_return_to_url =
-
-  # Set domain option for cookies; Useful for remember_me submodule.
-  # Default: `nil`
-  #
-  # config.cookie_domain =
-
-  # Allow the remember_me cookie to be set through AJAX
-  # Default: `true`
-  #
-  # config.remember_me_httponly =
-
-  # Set token randomness. (e.g. user activation tokens)
-  # The length of the result string is about 4/3 of `token_randomness`.
-  # Default: `15`
-  #
-  # config.token_randomness =
-
-  # -- session timeout --
-  # How long in seconds to keep the session alive.
-  # Default: `3600`
-  #
-  # config.session_timeout =
-
-  # Use the last action as the beginning of session timeout.
-  # Default: `false`
-  #
-  # config.session_timeout_from_last_action =
-
-  # Invalidate active sessions. Requires an `invalidate_sessions_before` timestamp column
-  # Default: `false`
-  #
-  # config.session_timeout_invalidate_active_sessions_enabled =
-
-  # -- http_basic_auth --
-  # What realm to display for which controller name. For example {"My App" => "Application"}
-  # Default: `{"application" => "Application"}`
-  #
-  # config.controller_to_realm_map =
-
-  # -- activity logging --
-  # Will register the time of last user login, every login.
-  # Default: `true`
-  #
-  # config.register_login_time =
-
-  # Will register the time of last user logout, every logout.
-  # Default: `true`
-  #
-  # config.register_logout_time =
-
-  # Will register the time of last user action, every action.
-  # Default: `true`
-  #
-  # config.register_last_activity_time =
-
-  # -- external --
+  config.external_providers = %i[google]
   # What providers are supported by this app
   # i.e. [:twitter, :facebook, :github, :linkedin, :xing, :google, :liveid, :salesforce, :slack, :line].
   # Default: `[]`
@@ -160,6 +163,13 @@ Rails.application.config.sorcery.configure do |config|
   # config.auth0.callback_url = "https://0.0.0.0:3000/oauth/callback?provider=auth0"
   # config.auth0.site = "https://example.auth0.com"
   #
+  config.google.key = Rails.application.credentials.dig(:google, :google_client_id)
+  config.google.secret = Rails.application.credentials.dig(:google, :google_client_secret)
+  # API設定で承認済みのリダイレクトURIとして登録したurlを設定
+  config.google.callback_url = 'http://localhost:3000/oauth/callback?provider=google'
+  # 外部サービスから取得したユーザー情報をUserモデルの指定した属性にマッピング
+  config.google.user_info_mapping = { email: 'email', name: 'name' }
+
   # config.google.key = ""
   # config.google.secret = ""
   # config.google.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=google"
@@ -244,6 +254,8 @@ Rails.application.config.sorcery.configure do |config|
   # config.battlenet.scope = "openid"
   # --- user config ---
   config.user_config do |user|
+    # 外部サービスとの認証情報を保存するモデルを指定
+    user.authentications_class = Authentication
     # -- core --
     # Specify username attributes, for example: [:username, :email].
     # Default: `[:email]`
