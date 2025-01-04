@@ -13,7 +13,7 @@
           <% end %>
         </li>
         <li class="list-inline-item">
-          <%= button_to saving_path(saving), method: :delete, data: { turbo_confirm: t('defaults.delete_confirm')} do %>
+          <%= button_to saving_path(saving), method: :delete, data: { turbo_confirm: '削除しますか？' } do %>
             <i class="fa-solid fa-trash fa-shake"></i>
           <% end %>
         </li>
