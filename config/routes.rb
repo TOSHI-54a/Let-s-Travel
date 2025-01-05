@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  post 'google_login_api/callback'
+  get 'oauth/callback' => 'oauths#callback', as: :oauth_callback
+  get 'oauth/:provider' => 'oauths#oauth', as: :auth_at_provider
+  # post 'google_login_api/callback'
   get 'savings/new'
   get 'savings/create'
   get 'savings/index'
