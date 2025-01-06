@@ -295,6 +295,7 @@ Rails.application.config.sorcery.configure do |config|
     # How many times to apply encryption to the password.
     # Default: 1 in test env, `nil` otherwise
     #
+    user.username_attribute_names = [:email]
     user.stretches = 1 if Rails.env.test?
 
     # Encryption key used to encrypt reversible encryptions such as AES256.

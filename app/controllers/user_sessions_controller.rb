@@ -8,8 +8,11 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    @user = login(params[:email], params[:password])
+    Rails.logger.info "Params: #{params.inspect}"
+    login_params = params.permit(:email, :password, :authenticity_token, :commit)
+    @user = login(login_params[:email], login_params[:password])
     if @user
+      Rails.logger.info "Login successful for user: #{@user.email}"
       redirect_to root_path, success: 'ログインしました'
     else
       flash.now[:danger] = 'ログインに失敗しました'
