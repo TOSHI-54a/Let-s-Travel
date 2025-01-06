@@ -7,6 +7,6 @@ FactoryBot.define do
     password { 'password' }
     password_confirmation { 'password' }
 
-    to_create { |instance| instance.save(validate: false) }
+    to_create(&:save)
   end
 end
