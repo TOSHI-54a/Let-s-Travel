@@ -4,9 +4,9 @@ FactoryBot.define do
   factory :user do
     name { Faker::Name.name }
     email { Faker::Internet.email }
-    password { "password" }
-    password_confirmation { "password" }
+    password { 'password' }
+    password_confirmation { 'password' }
 
-    to_create { |instance| instance.save }
+    to_create(&:save)
   end
 end
