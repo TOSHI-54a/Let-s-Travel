@@ -16,6 +16,8 @@ class ChatGptClient
   end
 
   def get_recommendations(params)
+    prompt = generate_prompt(params)
+    Rails.logger.debug { "*** 実際のプロンプト: #{prompt}" }
     body = {
       model: 'gpt-3.5-turbo',
       messages: [
